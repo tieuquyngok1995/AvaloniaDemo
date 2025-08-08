@@ -1,0 +1,28 @@
+<Application
+  x:Class="ConfigGenerator.Desktop.App"
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="using:ConfigGenerator.Desktop"
+    xmlns:vm="clr-namespace:ConfigGenerator.ViewModels;assembly=ConfigGenerator"
+  xmlns:views="clr-namespace:ConfigGenerator.Desktop.Views">
+
+  <Application.DataTemplates>
+
+    <DataTemplate DataType="vm:SensorDataCollectorViewModel">
+      <views:SensorDataCollectorView />
+    </DataTemplate>
+
+    <DataTemplate DataType="vm:ExchangeSyncViewModel">
+      <views:ExchangeSyncView />
+    </DataTemplate>
+
+    <DataTemplate DataType="vm:ServiceManagerViewModel">
+      <views:ServiceManagerView />
+    </DataTemplate>
+
+  </Application.DataTemplates>
+  
+  <Application.Styles>
+    <FluentTheme />
+  </Application.Styles>
+</Application>
