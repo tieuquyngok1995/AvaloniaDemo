@@ -1,0 +1,126 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:ConfigGenerator.ViewModels;assembly=ConfigGenerator"
+        xmlns:views="clr-namespace:ConfigGenerator.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ConfigGenerator.Desktop.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Smart Room Config Generator">
+
+  <Window.Styles>
+    <!-- Style cho menu item -->
+    <Style Selector="Button.MenuButton">
+      <Setter Property="Height" Value="50"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalContentAlignment" Value="Left"/>
+      <Setter Property="Padding" Value="15,0"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="Margin" Value="0,3"/>
+      <Setter Property="Transitions">
+        <Setter.Value>
+          <Transitions>
+            <BrushTransition Property="Background" Duration="0:0:0.2"/>
+          </Transitions>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- Style cho menu item khi hover -->
+    <Style Selector="Button.MenuButton:pointerover">
+      <Setter Property="Background" Value="#3E4A69"/>
+    </Style>
+
+    <!-- Style cho menu item được chọn -->
+    <Style Selector="Button.MenuButton.Selected">
+      <Setter Property="Background" Value="#4E5A79"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+  </Window.Styles>
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="220" />
+      <!-- Sidebar menu bên trái -->
+      <ColumnDefinition Width="*" />
+      <!-- Khu vực content bên phải -->
+    </Grid.ColumnDefinitions>
+
+    <!-- Phần 1: Sidebar bên trái (Menu và Logo) -->
+    <Border Background="#2C3E50" Grid.Column="0">
+      <Grid RowDefinitions="Auto,*">
+        <!-- Logo -->
+        <StackPanel Grid.Row="0" Margin="10,20,10,30">
+          <Image Source="/Assets/smart-room-logo.png" Height="80" Margin="0,0,0,15"/>
+          <TextBlock Text="Smart Room Config"
+                     HorizontalAlignment="Center"
+                     FontSize="16"
+                     FontWeight="Bold"
+                     Foreground="White"/>
+        </StackPanel>
+
+        <!-- Menu Items -->
+        <StackPanel Grid.Row="1" Margin="5,0">
+          <Button Content="General Settings"
+                  Classes="MenuButton Selected"
+                  Command="{Binding NavigateToCommand}"
+                  CommandParameter="sensorDataCollector"/>
+
+          <Button Content="Get Info App"
+                  Classes="MenuButton"
+                  Command="{Binding NavigateToCommand}"
+                  CommandParameter="exchangeSync"/>
+
+          <Button Content="Exchange App"
+                  Classes="MenuButton"
+                  Command="{Binding NavigateToCommand}"
+                  CommandParameter="serviceManager"/>
+
+          <Button Content="About"
+                  Classes="MenuButton"
+                  Command="{Binding NavigateToCommand}"
+                  CommandParameter="about"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Phần 2 & 3: Khu vực bên phải (nội dung và buttons) -->
+    <Grid Grid.Column="1" RowDefinitions="*,Auto">
+      <!-- Phần 2: View chính hiển thị nội dung -->
+      <ContentControl Grid.Row="0"
+                      Margin="15"
+                      Content="{Binding CurrentView}"/>
+
+      <!-- Phần 3: Dải buttons action ở dưới cùng -->
+      <Border Grid.Row="1"
+              Background="#F0F0F0"
+              BorderBrush="#DDDDDD"
+              BorderThickness="0,1,0,0"
+              Padding="15">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10">
+          <Button Content="Generate Config"
+                  Command="{Binding GenerateConfigCommand}"
+                  Background="#2C3E50"
+                  Foreground="White"
+                  Padding="15,10"/>
+
+          <Button Content="Save Draft"
+                  Command="{Binding SaveDraftCommand}"
+                  Background="#34495E"
+                  Foreground="White"
+                  Padding="15,10"/>
+
+          <Button Content="Cancel"
+                  Command="{Binding CancelCommand}"
+                  Padding="15,10"/>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>
