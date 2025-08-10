@@ -1,0 +1,19 @@
+<UserControl x:Class="ConfigGenerator.Views.ServiceManagerSettingsView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ConfigGenerator.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="vm:ServiceManagerSettingsViewModel"
+             mc:Ignorable="d">
+  <Grid Margin="20" RowDefinitions="Auto, *">
+    <TextBlock Grid.Row="0" Margin="0,20" FontSize="20" FontWeight="Bold">
+      Welcome to ServiceManagerSettingsView!
+    </TextBlock>
+    <Border Grid.Row="1" Background="#2d323c" CornerRadius="10">
+      <Image Height="320" Source="/Assets/avalonia-logo.ico" />
+    </Border>
+  </Grid>
+</UserControl>

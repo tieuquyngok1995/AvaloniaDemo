@@ -1,0 +1,59 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Style cho tất cả Button (mặc định)  -->
+    <Style Selector="Button">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="MinWidth" Value="80" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Margin" Value="4" />
+    </Style>
+
+    <!--  Nút nhỏ  -->
+    <Style Selector="Button.small">
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <!--  Nút trung bình  -->
+    <Style Selector="Button.medium">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!--  Nút lớn  -->
+    <Style Selector="Button.large">
+        <Setter Property="Width" Value="140" />
+        <Setter Property="Height" Value="48" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!--  Nút icon-only  -->
+    <Style Selector="Button.icon">
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <!--  Nút primary  -->
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <!--  Nút danger  -->
+    <Style Selector="Button.danger">
+        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <!--  Nút success  -->
+    <Style Selector="Button.success">
+        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+</Styles>

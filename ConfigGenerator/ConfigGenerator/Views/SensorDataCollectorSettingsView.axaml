@@ -1,0 +1,27 @@
+<UserControl x:Class="ConfigGenerator.Views.SensorDataCollectorSettingsView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ConfigGenerator.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="vm:SensorDataCollectorSettingsViewModel"
+             mc:Ignorable="d">
+  <Grid Margin="20" RowDefinitions="Auto, *">
+    <TextBlock Grid.Row="0" Margin="0,20" FontSize="20" FontWeight="Bold">
+      Welcome to SensorDataCollectorSettingsView!
+    </TextBlock>
+    <UniformGrid HorizontalAlignment="Center" VerticalAlignment="Center" Columns="3" Rows="3">
+      <Button Margin="0,20" Classes="primary" Content="Save" />
+      <Button Margin="0,20" Classes="danger" Content="Delete" />
+      <Button Margin="0,20" Content="Cancel" />
+      <Button Margin="0,20" Classes="small" Content="OK" />
+      <Button Margin="0,20" Classes="medium" Content="Save" />
+      <Button Classes="large" Content="Apply Changes" />
+      <Button Margin="0,20" Classes="icon">
+        <PathIcon Data="M12,0 L24,12 L12,24 L0,12 Z" />
+      </Button>
+    </UniformGrid>
+  </Grid>
+</UserControl>
