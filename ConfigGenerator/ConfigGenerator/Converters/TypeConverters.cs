@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
@@ -19,4 +21,39 @@ public class TypeConverters
             Application.Current!.TryFindResource(iconKey, out var resource);
             return resource as StreamGeometry ?? StreamGeometry.Parse(StreamGeometryNotFound);
         });
+
+    // Add this static property to the TypeConverters class
+    public static readonly BoolToMenuWidthConverter BoolToMenuWidthConverter = new BoolToMenuWidthConverter();
+
+    public static readonly BoolToPaddingConverter BoolToPaddingConverter = new BoolToPaddingConverter();
+}
+
+public class BoolToMenuWidthConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value is bool isPaneOpen && isPaneOpen ? 300.0 : 42.0;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class BoolToPaddingConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        // When IsPaneOpen is true, padding is 0,0
+        // When IsPaneOpen is false, padding is 36,0
+        return value is bool isPaneOpen && isPaneOpen
+            ? new Thickness(12, 0, 0, 0)  // Using 12,0 when open to match your existing style
+            : new Thickness(36, 0, 0, 0);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 }

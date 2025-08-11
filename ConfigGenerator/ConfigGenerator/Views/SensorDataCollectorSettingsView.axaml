@@ -12,16 +12,5 @@
     <TextBlock Grid.Row="0" Margin="0,20" FontSize="20" FontWeight="Bold">
       Welcome to SensorDataCollectorSettingsView!
     </TextBlock>
-    <UniformGrid HorizontalAlignment="Center" VerticalAlignment="Center" Columns="3" Rows="3">
-      <Button Margin="0,20" Classes="primary" Content="Save" />
-      <Button Margin="0,20" Classes="danger" Content="Delete" />
-      <Button Margin="0,20" Content="Cancel" />
-      <Button Margin="0,20" Classes="small" Content="OK" />
-      <Button Margin="0,20" Classes="medium" Content="Save" />
-      <Button Classes="large" Content="Apply Changes" />
-      <Button Margin="0,20" Classes="icon">
-        <PathIcon Data="M12,0 L24,12 L12,24 L0,12 Z" />
-      </Button>
-    </UniformGrid>
   </Grid>
 </UserControl>

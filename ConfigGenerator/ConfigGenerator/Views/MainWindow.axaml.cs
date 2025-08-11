@@ -10,7 +10,7 @@ public partial class MainWindow : AppWindow
         DataContext = vm;
         InitializeComponent();
 
-        SplashScreen = new ComplexSplashScreen();
+        //SplashScreen = new ComplexSplashScreen();
 
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;

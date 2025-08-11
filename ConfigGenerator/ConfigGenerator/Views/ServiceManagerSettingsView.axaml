@@ -8,12 +8,34 @@
              d:DesignWidth="800"
              x:DataType="vm:ServiceManagerSettingsViewModel"
              mc:Ignorable="d">
-  <Grid Margin="20" RowDefinitions="Auto, *">
+  <Grid Margin="20" RowDefinitions="Auto, *, *, *" ColumnDefinitions="*, * ,*">
     <TextBlock Grid.Row="0" Margin="0,20" FontSize="20" FontWeight="Bold">
       Welcome to ServiceManagerSettingsView!
     </TextBlock>
-    <Border Grid.Row="1" Background="#2d323c" CornerRadius="10">
-      <Image Height="320" Source="/Assets/avalonia-logo.ico" />
+    <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#2d323c" CornerRadius="10">
+      <StackPanel Margin="20">
+        <ComboBox SelectedIndex="0" MaxDropDownHeight="100">
+          <ComboBoxItem>Text Item 1</ComboBoxItem>
+          <ComboBoxItem>Text Item 2</ComboBoxItem>
+          <ComboBoxItem>Text Item 3</ComboBoxItem>
+          <ComboBoxItem>Text Item 4</ComboBoxItem>
+          <ComboBoxItem>Text Item 5</ComboBoxItem>
+          <ComboBoxItem>Text Item 6</ComboBoxItem>
+          <ComboBoxItem>Text Item 7</ComboBoxItem>
+          <ComboBoxItem>Text Item 8</ComboBoxItem>
+          <ComboBoxItem>Text Item 9</ComboBoxItem>
+        </ComboBox>
+      </StackPanel>
+    </Border>
+
+    <Border Grid.Row="2" Background="Red" CornerRadius="10">
+
+    </Border>
+
+    <Border Grid.Row="3" Background="Beige" CornerRadius="10">
+
     </Border>
   </Grid>
 </UserControl>
+
+

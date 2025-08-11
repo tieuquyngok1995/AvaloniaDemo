@@ -22,9 +22,9 @@ public partial class MainViewModel : ViewModelBase
 
     private readonly List<ListItemTemplate> _templates =
     [
-        new ListItemTemplate(typeof(SensorDataCollectorSettingsViewModel), "HomeRegular", "SensorDataCollector"),
-        new ListItemTemplate(typeof(ExchangeSyncSettingsViewModel), "CursorHoverRegular", "ExchangeSyncSettings"),
-        new ListItemTemplate(typeof(ServiceManagerSettingsViewModel), "TextNumberFormatRegular", "ServiceManager")
+        new ListItemTemplate(typeof(SensorDataCollectorSettingsViewModel), "SensorIcon", "Sensor Data Collector"),
+        new ListItemTemplate(typeof(ExchangeSyncSettingsViewModel), "ExchangeIcon", "Exchange Sync Settings"),
+        new ListItemTemplate(typeof(ServiceManagerSettingsViewModel), "ServiceManagerIcon", "Service Manager")
     ];
 
 
