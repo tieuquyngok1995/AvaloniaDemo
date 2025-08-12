@@ -2,39 +2,47 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 
 namespace ConfigGenerator;
 
+/// <summary>
+/// ViewModelから対応するViewを解決し、インスタンスを生成するためのロケータークラスです。
+/// DIコンテナやキャッシュ機能にも対応しています。
+/// </summary>
 public class ViewLocator : IDataTemplate
 {
-    private readonly Dictionary<Type, Func<Control?>> _locator = new();
-    private readonly ConcurrentDictionary<Type, Control> _viewCache = new();
+    // ViewModel型とView生成ファクトリのマッピング
+    private readonly Dictionary<Type, Func<Control?>> _locator = [];
+    // Viewのキャッシュ（useCache=trueの場合のみ利用）
+    private readonly ConcurrentDictionary<Type, Control?> _viewCache = new();
+    // DIサービスプロバイダー
     private readonly IServiceProvider? _serviceProvider;
+    // キャッシュ利用フラグ
     private readonly bool _useCache;
 
-    // Constructor mặc định cho XAML (Design Mode)
+    /// <summary>
+    /// デザインモード用のデフォルトコンストラクタ
+    /// </summary>
     public ViewLocator() : this(null, false) { }
 
     /// <summary>
-    /// Tạo ViewLocator.
-    /// - serviceProvider: nếu null sẽ fallback về Activator (không dùng DI)
-    /// - useCache: nếu true sẽ cache View instances để reuse (giữ trạng thái View giữa các lần hiển thị)
+    /// ViewLocatorを生成します。
+    /// serviceProvider: DIコンテナ。nullの場合はActivatorでインスタンス生成。
+    /// useCache: trueの場合、Viewインスタンスをキャッシュし再利用します。
     /// </summary>
     public ViewLocator(IServiceProvider? serviceProvider = null, bool useCache = false)
     {
         _serviceProvider = serviceProvider;
         _useCache = useCache;
 
-        // Đăng ký tự động theo convention: 'SomethingViewModel' -> 'SomethingView'
+        // 命名規則に従い自動でViewを登録
         AutoRegisterViews();
     }
 
     /// <summary>
-    /// Hỗ trợ đăng ký thủ công (nếu cần)
+    /// 手動でViewModelとViewのファクトリを登録します。
     /// </summary>
     public void RegisterViewFactory<TViewModel, TView>()
         where TViewModel : class
@@ -44,104 +52,115 @@ public class ViewLocator : IDataTemplate
     }
 
     /// <summary>
-    /// Xây dựng Control từ viewmodel instance
+    /// ViewModelインスタンスから対応するView(Control)を生成します。
     /// </summary>
     public Control Build(object? data)
     {
         if (data is null)
+        {
             return new TextBlock { Text = "No VM provided" };
+        }
 
-        var vmType = data.GetType();
+        Type vmType = data.GetType();
 
-        if (!_locator.TryGetValue(vmType, out var factory))
+        if (!_locator.TryGetValue(vmType, out Func<Control?>? factory))
+        {
             return new TextBlock { Text = $"VM Not Registered: {vmType.FullName}" };
+        }
 
-        var view = factory?.Invoke();
+        Control? view = factory?.Invoke();
         return view ?? new TextBlock { Text = $"View factory returned null for {vmType.FullName}" };
     }
 
     /// <summary>
-    /// Chỉ match khi đã có factory tương ứng (chính xác hơn)
+    /// 対応するViewファクトリが登録されている場合のみマッチします。
     /// </summary>
     public bool Match(object? data)
     {
         return data != null && _locator.ContainsKey(data.GetType());
     }
 
-    // ---------------------- Helpers ----------------------
-
+    /// <summary>
+    /// ViewModel型とView型を指定してファクトリを登録します。
+    /// </summary>
     private void RegisterViewFactory(Type viewModelType, Type viewType)
     {
         if (!typeof(Control).IsAssignableFrom(viewType))
-            throw new ArgumentException($"{viewType.FullName} is not a Control.");
-
-        // Nếu đã đăng ký -> ignore
-        if (_locator.ContainsKey(viewModelType))
-            return;
-
-        Func<Control?> factory = () =>
         {
-            // Nếu đang ở design mode, tạo trực tiếp để designer hoạt động ổn định
-            if (Design.IsDesignMode)
-                return Activator.CreateInstance(viewType) as Control;
+            throw new ArgumentException($"{viewType.FullName} is not a Control.");
+        }
 
-            // Nếu cache được bật, thử lấy từ cache
-            if (_useCache)
+        // 既に登録済みの場合は何もしない
+        if (_locator.ContainsKey(viewModelType))
+        {
+            return;
+        }
+
+        Control? factory()
+        {
+            // デザインモード時は直接インスタンス生成
+            if (Design.IsDesignMode)
             {
-                return _viewCache.GetOrAdd(viewModelType, _ => CreateInstance(viewType));
+                return Activator.CreateInstance(viewType) as Control;
             }
 
-            // Không cache -> mỗi lần tạo mới một instance
+            // キャッシュ利用時はキャッシュから取得または生成
+            if (_useCache)
+            {
+                return _viewCache.GetOrAdd(viewModelType, valueFactory: _ => CreateInstance(viewType));
+            }
+
+            // 毎回新規インスタンス生成
             return CreateInstance(viewType);
-        };
+        }
 
         _locator.Add(viewModelType, factory);
     }
 
+    /// <summary>
+    /// Viewのインスタンスを生成します（DI優先、なければActivator）。
+    /// </summary>
     private Control? CreateInstance(Type viewType)
     {
-        // Thử DI container trước nếu có
+        // DIコンテナから取得
         if (_serviceProvider != null)
         {
-            var svc = _serviceProvider.GetService(viewType) as Control;
-            if (svc != null)
+            if (_serviceProvider.GetService(viewType) is Control svc)
+            {
                 return svc;
+            }
         }
 
-        // Fallback: tạo instance trực tiếp (giúp đơn giản và tương thích)
+        // Fallback: 直接インスタンス生成
         return Activator.CreateInstance(viewType) as Control;
     }
 
+    /// <summary>
+    /// 命名規則（ViewModel→View）に従い、全てのViewModelに対応するViewを自動登録します。
+    /// </summary>
     private void AutoRegisterViews()
     {
-        // Lấy tất cả assembly hiện có (bỏ assembly động để tránh lỗi)
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies()
-            .Where(a => !a.IsDynamic)
-            .ToArray();
+        // 全アセンブリを取得（動的アセンブリは除外）
+        System.Reflection.Assembly[] assemblies = [.. AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic)];
 
-        foreach (var asm in assemblies)
+        foreach (System.Reflection.Assembly asm in assemblies)
         {
             Type[] types;
             try
             { types = asm.GetTypes(); }
             catch { continue; }
 
-            var viewModels = types
-                .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith("ViewModel", StringComparison.Ordinal))
-                .ToArray();
+            Type[] viewModels = [.. types.Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith("ViewModel", StringComparison.Ordinal))];
 
-            foreach (var vm in viewModels)
+            foreach (Type? vm in viewModels)
             {
-                // cố gắng tìm view theo nhiều cách:
-                // 1) thay "ViewModel" -> "View" giữ namespace
-                // 2) tìm type cùng tên trong bất kỳ assembly nào
-
+                // ViewModel名からView名を推測して検索
                 var viewCandidateFullName = vm.FullName!.Replace("ViewModel", "View");
                 var viewType = Type.GetType(viewCandidateFullName);
 
                 if (viewType == null)
                 {
-                    // tìm trong cùng assembly: namesapce + tên
+                    // 同一アセンブリ内で検索
                     var viewName = vm.Namespace is null
                         ? vm.Name.Replace("ViewModel", "View")
                         : vm.Namespace + "." + vm.Name.Replace("ViewModel", "View");
@@ -149,7 +168,7 @@ public class ViewLocator : IDataTemplate
                     viewType = asm.GetType(viewName);
                 }
 
-                // nếu vẫn null, cố gắng tìm bất kỳ type nào có tên tương ứng ở các assembly khác
+                // 他アセンブリも含めて型名で検索
                 if (viewType == null)
                 {
                     var simpleViewName = vm.Name.Replace("ViewModel", "View");
@@ -158,7 +177,7 @@ public class ViewLocator : IDataTemplate
                         {
                             try
                             { return a.GetTypes(); }
-                            catch { return Array.Empty<Type>(); }
+                            catch { return []; }
                         })
                         .FirstOrDefault(t => t.Name.Equals(simpleViewName, StringComparison.Ordinal));
                 }

@@ -4,6 +4,10 @@ using ConfigGenerator.Models;
 
 namespace ConfigGenerator.ViewModels;
 
+/// <summary>
+/// センサーデータコレクター設定画面用のViewModelクラスです。
+/// 出力モードや各種表示状態の管理を行います。
+/// </summary>
 public partial class SensorDataCollectorSettingsViewModel : ViewModelBase
 {
     public int JsonServerColumn => IsJsonServer ? 0 : (IsCloud ? 0 : 0);

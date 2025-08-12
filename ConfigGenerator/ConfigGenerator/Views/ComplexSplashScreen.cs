@@ -9,7 +9,7 @@ internal class ComplexSplashScreen : IApplicationSplashScreen
 {
     public string AppName => "";
 
-    public IImage AppIcon => null;
+    public IImage? AppIcon => null;
 
     public object SplashScreenContent { get; }
 

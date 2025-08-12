@@ -35,7 +35,7 @@
           <Button Width="36" MinWidth="36" MaxWidth="36" Margin="6,6,6,0" HorizontalAlignment="Left" Command="{Binding TriggerPaneCommand}">
             <PathIcon Width="16" Height="16" Data="{StaticResource LineHorizontal3Regular}" />
           </Button>
-          <ListBox Width="{Binding IsPaneOpen, Converter={x:Static converters:TypeConverters.BoolToMenuWidthConverter}}" Margin="0,-1,5,0" Padding="4" Classes.paneOpen="{Binding IsPaneOpen}" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
+          <ListBox Width="{Binding IsPaneOpen, Converter={x:Static converters:TypeConverters.MenuPaneWidthConverter}}" Margin="0,-1,5,0" Padding="4" Classes.paneOpen="{Binding IsPaneOpen}" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}">
             <ListBox.Styles>
               <Style Selector="ListBoxItem">
                 <Setter Property="Padding" Value="11 0" />
@@ -48,7 +48,7 @@
               </Style>
             </ListBox.Styles>
             <ListBox.ItemTemplate>
-              <DataTemplate DataType="{x:Type models:ListItemTemplate}">
+              <DataTemplate DataType="{x:Type models:NavigationMenuItem}">
                 <StackPanel Orientation="Horizontal" Spacing="12">
                   <PathIcon Width="16" Data="{Binding IconKey, Converter={x:Static converters:TypeConverters.IconConverter}}" />
                   <TextBlock FontSize="14" VerticalAlignment="Center" Text="{Binding Label}"/>

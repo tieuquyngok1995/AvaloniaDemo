@@ -21,7 +21,7 @@ public partial class SplashScreenView : UserControl
         while ((time - start) < TimeSpan.TicksPerSecond)
         {
             progressValue++;
-            Dispatcher.UIThread.Post(() => ProgressBar1.Value = progressValue);
+            Dispatcher.UIThread.Post(() => ProgressBarLoading.Value = progressValue);
             await Task.Delay(100);
             time = DateTime.Now.Ticks;
         }
@@ -32,7 +32,7 @@ public partial class SplashScreenView : UserControl
         while ((time - start) < limit)
         {
             progressValue += 1;
-            Dispatcher.UIThread.Post(() => ProgressBar1.Value = progressValue);
+            Dispatcher.UIThread.Post(() => ProgressBarLoading.Value = progressValue);
             await Task.Delay(150);
             time = DateTime.Now.Ticks;
         }
@@ -42,7 +42,7 @@ public partial class SplashScreenView : UserControl
         while (progressValue < 100)
         {
             progressValue += 1;
-            Dispatcher.UIThread.Post(() => ProgressBar1.Value = progressValue);
+            Dispatcher.UIThread.Post(() => ProgressBarLoading.Value = progressValue);
             await Task.Delay(10);
         }
     }

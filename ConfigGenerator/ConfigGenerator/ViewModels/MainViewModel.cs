@@ -10,23 +10,27 @@ using ConfigGenerator.Models;
 
 namespace ConfigGenerator.ViewModels;
 
+/// <summary>
+/// アプリケーションのメイン画面のViewModelクラスです。
+/// ナビゲーションメニューの項目管理、
+/// ペインの開閉状態や現在表示中のページの管理などを行います。
+/// </summary>
 public partial class MainViewModel : ViewModelBase
 {
-    public MainViewModel()
-    {
+    public ObservableCollection<NavigationMenuItem> MenuItems { get; }
 
-        Items = new ObservableCollection<ListItemTemplate>(_templates);
-
-        SelectedListItem = Items.First(vm => vm.ModelType == typeof(SensorDataCollectorSettingsViewModel));
-    }
-
-    private readonly List<ListItemTemplate> _templates =
+    private readonly List<NavigationMenuItem> _templates =
     [
-        new ListItemTemplate(typeof(SensorDataCollectorSettingsViewModel), "SensorIcon", "Sensor Data Collector"),
-        new ListItemTemplate(typeof(ExchangeSyncSettingsViewModel), "ExchangeIcon", "Exchange Sync Settings"),
-        new ListItemTemplate(typeof(ServiceManagerSettingsViewModel), "ServiceManagerIcon", "Service Manager")
+        new NavigationMenuItem(typeof(SensorDataCollectorSettingsViewModel), "SensorIcon", "Sensor Data Collector"),
+        new NavigationMenuItem(typeof(ExchangeSyncSettingsViewModel), "ExchangeIcon", "Exchange Sync Settings"),
+        new NavigationMenuItem(typeof(ServiceManagerSettingsViewModel), "ServiceManagerIcon", "Service Manager")
     ];
 
+    public MainViewModel()
+    {
+        MenuItems = new ObservableCollection<NavigationMenuItem>(_templates);
+        SelectedMenuItem = MenuItems.First(vm => vm.ModelType == typeof(SensorDataCollectorSettingsViewModel));
+    }
 
     [ObservableProperty]
     private bool _isPaneOpen;
@@ -35,9 +39,15 @@ public partial class MainViewModel : ViewModelBase
     private ViewModelBase _currentPage = new SensorDataCollectorSettingsViewModel();
 
     [ObservableProperty]
-    private ListItemTemplate? _selectedListItem;
+    private NavigationMenuItem? _selectedMenuItem;
 
-    partial void OnSelectedListItemChanged(ListItemTemplate? value)
+    [RelayCommand]
+    private void TriggerPane()
+    {
+        IsPaneOpen = !IsPaneOpen;
+    }
+
+    partial void OnSelectedMenuItemChanged(NavigationMenuItem? value)
     {
         if (value is null)
             return;
@@ -50,13 +60,5 @@ public partial class MainViewModel : ViewModelBase
             return;
 
         CurrentPage = vmb;
-    }
-
-    public ObservableCollection<ListItemTemplate> Items { get; }
-
-    [RelayCommand]
-    private void TriggerPane()
-    {
-        IsPaneOpen = !IsPaneOpen;
     }
 }

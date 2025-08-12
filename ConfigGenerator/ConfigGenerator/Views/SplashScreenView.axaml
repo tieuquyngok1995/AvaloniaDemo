@@ -7,11 +7,11 @@
   <Panel Background="#1e1e1e">
     <StackPanel Spacing="10"
                 VerticalAlignment="Center">
-      <Image Source="/Assets/avalonia-logo.ico"
-             Width="250"
-             Height="250" />
+      <Image Source="/Assets/Images/sr-logo.png"
+             Width="160"
+             Height="160" />
 
-      <ProgressBar Name="ProgressBar1"
+      <ProgressBar Name="ProgressBarLoading"
                    MaxWidth="200"
                    Margin="0" />
 
