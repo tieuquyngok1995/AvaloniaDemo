@@ -1,59 +1,111 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--  Style cho tất cả Button (mặc định)  -->
-    <Style Selector="Button">
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="MinWidth" Value="80" />
-        <Setter Property="MinHeight" Value="32" />
-        <Setter Property="Margin" Value="4" />
-    </Style>
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--  Button  -->
+  <Style Selector="Button.btn">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="MinWidth" Value="80" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="Margin" Value="4" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter
+          x:Name="PART_ContentPresenter"
+          Padding="{TemplateBinding Padding}"
+          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+          Background="{TemplateBinding Background}"
+          BorderBrush="{TemplateBinding BorderBrush}"
+          BorderThickness="{TemplateBinding BorderThickness}"
+          Content="{TemplateBinding Content}"
+          ContentTemplate="{TemplateBinding ContentTemplate}"
+          CornerRadius="{TemplateBinding CornerRadius}"
+          RecognizesAccessKey="True" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
 
-    <!--  Nút nhỏ  -->
-    <Style Selector="Button.small">
-        <Setter Property="Width" Value="80" />
-        <Setter Property="Height" Value="32" />
-        <Setter Property="FontSize" Value="12" />
-    </Style>
+  <Style Selector="Button.btn:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#112D4E" />
+    <Setter Property="TextBlock.Foreground" Value="White" />
+  </Style>
 
-    <!--  Nút trung bình  -->
-    <Style Selector="Button.medium">
-        <Setter Property="Width" Value="100" />
-        <Setter Property="Height" Value="40" />
-        <Setter Property="FontSize" Value="14" />
-    </Style>
+  <Style Selector="Button.btn:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Opacity" Value=".7" />
+    <Setter Property="Background" Value="#3F72AF" />
+    <Setter Property="TextBlock.Foreground" Value="White" />
+  </Style>
 
-    <!--  Nút lớn  -->
-    <Style Selector="Button.large">
-        <Setter Property="Width" Value="140" />
-        <Setter Property="Height" Value="48" />
-        <Setter Property="FontSize" Value="16" />
-    </Style>
+  <Style Selector="Button.IconBtn">
+    <Setter Property="Width" Value="50" />
+  </Style>
 
-    <!--  Nút icon-only  -->
-    <Style Selector="Button.icon">
-        <Setter Property="Width" Value="36" />
-        <Setter Property="Height" Value="36" />
-        <Setter Property="Padding" Value="0" />
-    </Style>
+  <Style Selector="Button.VCent">
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
 
-    <!--  Nút primary  -->
-    <Style Selector="Button.primary">
-        <Setter Property="Background" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
-        <Setter Property="FontWeight" Value="Bold" />
-    </Style>
+  <Style Selector="Button.HCent">
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </Style>
 
-    <!--  Nút danger  -->
-    <Style Selector="Button.danger">
-        <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontWeight" Value="Bold" />
-    </Style>
+  <Style Selector="Button.HCCent">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
 
-    <!--  Nút success  -->
-    <Style Selector="Button.success">
-        <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontWeight" Value="Bold" />
-    </Style>
+  <Style Selector="Button.VCCent">
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <!--  Button small  -->
+  <Style Selector="Button.small">
+    <Setter Property="Width" Value="80" />
+    <Setter Property="Height" Value="32" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+
+  <!--  Button medium  -->
+  <Style Selector="Button.medium">
+    <Setter Property="Width" Value="100" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="FontSize" Value="14" />
+  </Style>
+
+  <!--  Button large  -->
+  <Style Selector="Button.large">
+    <Setter Property="Width" Value="140" />
+    <Setter Property="Height" Value="48" />
+    <Setter Property="FontSize" Value="16" />
+  </Style>
+
+  <!--  Button icon-only  -->
+  <Style Selector="Button.icon">
+    <Setter Property="Width" Value="36" />
+    <Setter Property="Height" Value="36" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+
+  <!--  Button primary  -->
+  <Style Selector="Button.primary">
+    <Setter Property="Background" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource AccentFillColorSecondaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <!--  Button danger  -->
+  <Style Selector="Button.danger">
+    <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <!--  Button success  -->
+  <Style Selector="Button.success">
+    <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
 </Styles>

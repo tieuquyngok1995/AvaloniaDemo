@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <AvaloniaXaml Remove="Assets\Buttons.axaml" />
+    <AvaloniaXaml Remove="Assets\Styles\Styles.axaml" />
+    <AvaloniaXaml Remove="Assets\Styles\TextBoxs.axaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +29,12 @@
 
   <ItemGroup>
     <AvaloniaResource Update="Assets\Styles\Buttons.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Assets\Styles\Styles.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Assets\Styles\TextBoxs.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>
