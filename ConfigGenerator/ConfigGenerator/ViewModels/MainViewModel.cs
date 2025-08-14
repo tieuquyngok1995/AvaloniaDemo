@@ -7,7 +7,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using ConfigGenerator.Models;
-using ConfigGenerator.Service;
 
 namespace ConfigGenerator.ViewModels;
 
@@ -18,37 +17,56 @@ namespace ConfigGenerator.ViewModels;
 /// </summary>
 public partial class MainViewModel : ViewModelBase
 {
+    /// <summary>
+    /// ナビゲーションメニューの項目リスト
+    /// </summary>
     public ObservableCollection<NavigationMenuItem> MenuItems { get; }
 
-    private readonly List<NavigationMenuItem> _templates =
-    [
-        new NavigationMenuItem(typeof(SensorDataCollectorSettingsViewModel), "SensorIcon", "Sensor Data Collector"),
-        new NavigationMenuItem(typeof(ExchangeSyncSettingsViewModel), "ExchangeIcon", "Exchange Sync Settings"),
-        new NavigationMenuItem(typeof(ServiceManagerSettingsViewModel), "ServiceManagerIcon", "Service Manager")
-    ];
-
-    public MainViewModel()
-    {
-        MenuItems = new ObservableCollection<NavigationMenuItem>(_templates);
-        SelectedMenuItem = MenuItems.First(vm => vm.ModelType == typeof(ExchangeSyncSettingsViewModel));
-    }
-
+    /// <summary>
+    /// ペインが開いているかどうかを示すフラグ
+    /// </summary>
     [ObservableProperty]
     private bool _isPaneOpen;
 
-    [ObservableProperty]
-    //private ViewModelBase _currentPage = new ExchangeSyncSettingsViewModel();
-    private ViewModelBase _currentPage = new ExchangeSyncSettingsViewModel(new FilePickerService());
-
+    /// <summary>
+    /// 選択中のナビゲーションメニュー項目
+    /// </summary>
     [ObservableProperty]
     private NavigationMenuItem? _selectedMenuItem;
 
+    /// <summary>
+    /// ナビゲーションメニューの項目リスト（内部用）
+    /// </summary>
+    private readonly List<NavigationMenuItem> _listView = AppData.Views;
+
+    /// <summary>
+    /// 現在表示中のページのViewModel
+    /// </summary>
+    [ObservableProperty]
+    private ViewModelBase _currentPage = new SensorDataCollectorSettingsViewModel();
+
+    /// <summary>
+    /// MainViewModelのコンストラクタ
+    /// </summary>
+    public MainViewModel()
+    {
+        MenuItems = new ObservableCollection<NavigationMenuItem>(_listView);
+        SelectedMenuItem = MenuItems.First(vm => vm.ModelType == typeof(SensorDataCollectorSettingsViewModel));
+    }
+
+    /// <summary>
+    /// ペインの開閉を切り替えるコマンド
+    /// </summary>
     [RelayCommand]
     private void TriggerPane()
     {
         IsPaneOpen = !IsPaneOpen;
     }
 
+    /// <summary>
+    /// 選択中のナビゲーションメニュー項目が変更されたときの処理
+    /// </summary>
+    /// <param name="value">新しく選択された項目</param>
     partial void OnSelectedMenuItemChanged(NavigationMenuItem? value)
     {
         if (value is null)

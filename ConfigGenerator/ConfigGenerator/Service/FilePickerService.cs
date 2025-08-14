@@ -8,28 +8,37 @@ namespace ConfigGenerator.Service;
 
 internal class FilePickerService : IFilePickerService
 {
+    /// <summary>
+    /// ファイル選択ダイアログを表示し、選択されたファイルのパスを返します。
+    /// </summary>
+    /// <param name="title">ダイアログのタイトル（nullの場合はデフォルトタイトル）</param>
+    /// <returns>選択されたファイルのパス。選択されなかった場合はnull。</returns>
     [System.Obsolete]
     public async Task<string?> PickFilesAsync(string? title)
     {
         var dialog = new OpenFileDialog
         {
-            Title = title ?? "Chọn file",
+            Title = title ?? "ファイルを選択",
             AllowMultiple = false
         };
 
-        var window = GetMainWindow();
+        Window? window = GetMainWindow();
         if (window is null)
+        {
             return null;
+        }
 
         var result = await dialog.ShowAsync(window);
 
-        // Nếu có file được chọn, trả về file đầu tiên
         return result?.FirstOrDefault();
     }
 
-    private Window? GetMainWindow()
+    /// <summary>
+    /// アプリケーションのメインウィンドウを取得します。
+    /// </summary>
+    /// <returns>メインウィンドウ。取得できない場合はnull。</returns>
+    private static Window? GetMainWindow()
     {
-        // Lấy main window của ứng dụng
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             return desktop.MainWindow;
