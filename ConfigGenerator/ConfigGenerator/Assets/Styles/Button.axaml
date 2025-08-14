@@ -88,18 +88,18 @@
     <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
     <Setter Property="FontWeight" Value="Bold" />
   </Style>
-
-  <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
     <Setter Property="Background" Value="{DynamicResource AccentFillColorSecondaryBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
-    <Setter Property="FontWeight" Value="Bold" />
   </Style>
 
   <!--  Button danger  -->
   <Style Selector="Button.danger">
     <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-    <Setter Property="Foreground" Value="White" />
+    <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
     <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+  <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="#CC4C3E" />
   </Style>
 
   <!--  Button success  -->

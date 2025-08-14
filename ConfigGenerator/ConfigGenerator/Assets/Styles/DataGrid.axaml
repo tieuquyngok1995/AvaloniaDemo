@@ -20,25 +20,22 @@
     <Setter Property="Foreground" Value="#212121" />
     <Setter Property="Padding" Value="4,2" />
   </Style>
-
-  <Style Selector="DataGridCell">
-    <Setter Property="BorderBrush" Value="LightGray" />
-    <Setter Property="BorderThickness" Value="0,0,1,1" />
-  </Style>
-
   <Style Selector="DataGridRow:nth-child(odd)">
     <Setter Property="Background" Value="#FFFFFF" />
   </Style>
   <Style Selector="DataGridRow:nth-child(even)">
     <Setter Property="Background" Value="#EBEBEB" />
   </Style>
-
-  <!--  Hover  -->
   <Style Selector="DataGridRow:pointerover">
     <Setter Property="Background" Value="#CCE5FF" />
   </Style>
-
   <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="#85C1E9" />
+  </Style>
+
+  <!--  Cell  -->
+  <Style Selector="DataGridCell">
+    <Setter Property="BorderBrush" Value="LightGray" />
+    <Setter Property="BorderThickness" Value="0,0,1,1" />
   </Style>
 </Styles>

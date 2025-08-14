@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 
@@ -16,10 +16,10 @@ class Program
     public static int Main(string[] args)
     {
         var builder = BuildAvaloniaApp();
-        if(args.Contains("--drm"))
+        if (args.Contains("--drm"))
         {
             SilenceConsole();
-                
+
             // If Card0, Card1 and Card2 all don't work. You can also try:                 
             // return builder.StartLinuxFbDev(args);
             // return builder.StartLinuxDrm(args, "/dev/dri/card1");
@@ -43,9 +43,9 @@ class Program
         new Thread(() =>
             {
                 Console.CursorVisible = false;
-                while(true)
+                while (true)
                     Console.ReadKey(true);
             })
-            { IsBackground = true }.Start();
+        { IsBackground = true }.Start();
     }
 }

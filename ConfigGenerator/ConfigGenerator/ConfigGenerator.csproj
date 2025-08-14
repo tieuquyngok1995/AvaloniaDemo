@@ -14,7 +14,7 @@
     <AvaloniaXaml Remove="Assets\Buttons.axaml" />
     <AvaloniaXaml Remove="Assets\Styles\DataGrid.axaml" />
     <AvaloniaXaml Remove="Assets\Styles\Styles.axaml" />
-    <AvaloniaXaml Remove="Assets\Styles\TextBoxs.axaml" />
+    <AvaloniaXaml Remove="Assets\Styles\TextBox.axaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Update="Assets\Styles\Buttons.axaml">
+    <AvaloniaResource Update="Assets\Styles\Button.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Update="Assets\Styles\DataGrid.axaml">
@@ -39,7 +39,7 @@
     <AvaloniaResource Update="Assets\Styles\Styles.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
-    <AvaloniaResource Update="Assets\Styles\TextBoxs.axaml">
+    <AvaloniaResource Update="Assets\Styles\TextBox.axaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>
