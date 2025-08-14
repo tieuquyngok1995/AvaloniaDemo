@@ -1,20 +1,32 @@
-<UserControl x:Class="ConfigGenerator.Views.ServiceManagerSettingsView"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:ConfigGenerator.ViewModels"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             x:DataType="vm:ServiceManagerSettingsViewModel"
-             mc:Ignorable="d">
-  <Grid Margin="20" RowDefinitions="Auto, *, *, *" ColumnDefinitions="*, * ,*">
-    <TextBlock Grid.Row="0" Margin="0,20" FontSize="20" FontWeight="Bold">
+<UserControl
+  x:Class="ConfigGenerator.Views.ServiceManagerSettingsView"
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:vm="clr-namespace:ConfigGenerator.ViewModels"
+  d:DesignHeight="600"
+  d:DesignWidth="800"
+  x:DataType="vm:ServiceManagerSettingsViewModel"
+  mc:Ignorable="d">
+  <Grid
+    Margin="20"
+    ColumnDefinitions="*, * ,*"
+    RowDefinitions="Auto, *, *, *">
+    <TextBlock
+      Grid.Row="0"
+      Margin="0,20"
+      FontSize="20"
+      FontWeight="Bold">
       Welcome to ServiceManagerSettingsView!
     </TextBlock>
-    <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#2d323c" CornerRadius="10">
+    <Border
+      Grid.Row="1"
+      Grid.ColumnSpan="2"
+      Background="#2d323c"
+      CornerRadius="10">
       <StackPanel Margin="20">
-        <ComboBox SelectedIndex="0" MaxDropDownHeight="100">
+        <ComboBox MaxDropDownHeight="100" SelectedIndex="0">
           <ComboBoxItem>Text Item 1</ComboBoxItem>
           <ComboBoxItem>Text Item 2</ComboBoxItem>
           <ComboBoxItem>Text Item 3</ComboBoxItem>
@@ -28,14 +40,14 @@
       </StackPanel>
     </Border>
 
-    <Border Grid.Row="2" Background="Red" CornerRadius="10">
+    <Border
+      Grid.Row="2"
+      Background="Red"
+      CornerRadius="10" />
 
-    </Border>
-
-    <Border Grid.Row="3" Background="Beige" CornerRadius="10">
-
-    </Border>
+    <Border
+      Grid.Row="3"
+      Background="Beige"
+      CornerRadius="10" />
   </Grid>
 </UserControl>
-
-

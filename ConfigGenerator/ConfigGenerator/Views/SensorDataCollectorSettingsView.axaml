@@ -10,7 +10,7 @@
   x:DataType="vm:SensorDataCollectorSettingsViewModel"
   mc:Ignorable="d">
 
-  <Grid RowDefinitions="Auto, *, Auto">
+  <Grid RowDefinitions="Auto, *">
     <!--  Header  -->
     <Border Grid.Row="0" Padding="10">
       <TextBlock Classes="header" Text="情報取得アプリの設定" />
@@ -18,7 +18,7 @@
 
     <!--  Content  -->
     <Border Grid.Row="1" Padding="10">
-      <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, *">
+      <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto">
         <StackPanel
           Grid.Row="0"
           Orientation="Vertical"
@@ -62,7 +62,7 @@
               Orientation="Vertical"
               Spacing="4">
               <TextBlock Text="センサー情報取得間隔（秒）" />
-              <TextBox Watermark="秒数を入力（例: 10）" />
+              <TextBox Watermark="秒数を入力（例: 60）" />
             </StackPanel>
 
             <StackPanel
@@ -101,19 +101,19 @@
               IsVisible="{Binding IsJsonServerVisible}"
               Orientation="Vertical"
               Spacing="4">
-              <TextBlock Text="JSONサーバーURL（アップデート先）" />
-              <TextBox Watermark="アップデート先のURLを入力" />
+              <TextBlock Text="JSON Server サーバーURL" />
+              <TextBox Watermark="JSON Server の URL を入力" />
             </StackPanel>
           </Grid>
         </Border>
-      </Grid>
-    </Border>
 
-    <!--  Footer  -->
-    <Border Grid.Row="2" Padding="10">
-      <StackPanel HorizontalAlignment="Center">
-        <Button Classes="primary">RoomSenseの情報を取得する</Button>
-      </StackPanel>
+        <StackPanel
+          Grid.Row="3"
+          Grid.ColumnSpan="2"
+          HorizontalAlignment="Center">
+          <Button Classes="primary">RoomSenseの情報を取得する</Button>
+        </StackPanel>
+      </Grid>
     </Border>
   </Grid>
 </UserControl>

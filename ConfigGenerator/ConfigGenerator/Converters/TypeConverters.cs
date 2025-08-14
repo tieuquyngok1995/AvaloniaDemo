@@ -46,7 +46,7 @@ public class TypeConverters
 public class MenuPaneWidthConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => value is bool isPaneOpen && isPaneOpen ? 300.0 : 42.0;
+        => value is bool isPaneOpen && isPaneOpen ? 300.0 : 48.0;
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotImplementedException();
 }
