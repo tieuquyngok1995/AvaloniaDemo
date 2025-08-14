@@ -1,0 +1,44 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style Selector="DataGrid">
+    <Setter Property="BorderBrush" Value="LightGray" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+
+  <!--  Header  -->
+  <Style Selector="DataGridColumnHeader">
+    <Setter Property="Background" Value="#D4D4D4" />
+    <Setter Property="Foreground" Value="#0B1E3F" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Padding" Value="8,4" />
+  </Style>
+
+  <!--  Row  -->
+  <Style Selector="DataGridRow">
+    <Setter Property="Background" Value="{DynamicResource RowBackground}" />
+    <Setter Property="Foreground" Value="#212121" />
+    <Setter Property="Padding" Value="4,2" />
+  </Style>
+
+  <Style Selector="DataGridCell">
+    <Setter Property="BorderBrush" Value="LightGray" />
+    <Setter Property="BorderThickness" Value="0,0,1,1" />
+  </Style>
+
+  <Style Selector="DataGridRow:nth-child(odd)">
+    <Setter Property="Background" Value="#FFFFFF" />
+  </Style>
+  <Style Selector="DataGridRow:nth-child(even)">
+    <Setter Property="Background" Value="#EBEBEB" />
+  </Style>
+
+  <!--  Hover  -->
+  <Style Selector="DataGridRow:pointerover">
+    <Setter Property="Background" Value="#CCE5FF" />
+  </Style>
+
+  <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="#85C1E9" />
+  </Style>
+</Styles>

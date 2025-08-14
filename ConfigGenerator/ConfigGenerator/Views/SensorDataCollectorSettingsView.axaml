@@ -12,64 +12,107 @@
 
   <Grid RowDefinitions="Auto, *, Auto">
     <!--  Header  -->
-    <Border Grid.Row="0" Padding="12">
+    <Border Grid.Row="0" Padding="10">
       <TextBlock Classes="header" Text="情報取得アプリの設定" />
     </Border>
 
     <!--  Content  -->
-    <Border Grid.Row="1" Padding="12">
-      <Grid ColumnDefinitions="*, 10, *" RowDefinitions="Auto, auto, auto, auto">
-
-        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="8">
+    <Border Grid.Row="1" Padding="10">
+      <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, *">
+        <StackPanel
+          Grid.Row="0"
+          Orientation="Vertical"
+          Spacing="4">
           <TextBlock Text="センサー情報取得元" />
           <CheckBox Content="RoomSense中継機" IsChecked="{Binding IsJsonServer}" />
-          <CheckBox Content="RoomSenseクラウド" IsChecked="{Binding IsCloud}"/>
+          <CheckBox Content="RoomSenseクラウド" IsChecked="{Binding IsCloud}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="0"
-                IsVisible="{Binding IsJsonServer}" Margin="0,8" Orientation="Vertical" Spacing="8">
+        <!--  DataInputMode: 0  -->
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="0"
+          Margin="4"
+          IsVisible="{Binding IsJsonServer}"
+          Orientation="Vertical"
+          Spacing="4">
           <TextBlock Text="RoomSense中継機 - IP:Port" />
-          <TextBox Classes="multiline" Watermark="IPアドレスとポート番号..." />
+          <TextBox Classes="multiline" Watermark="IPアドレスとポート番号" />
         </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="{Binding CloudColumn}"
-                    IsVisible="{Binding IsCloud}" Margin="0,8" Orientation="Vertical" Spacing="8">
+        <!--  DataInputMode: 1  -->
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="{Binding CloudColumn}"
+          Margin="4"
+          IsVisible="{Binding IsCloud}"
+          Orientation="Vertical"
+          Spacing="4">
           <TextBlock Text="RoomSenseクラウド - 中継機コード:APIキー" />
           <TextBox Classes="multiline" Watermark="中継機コードとAPIキーを入力" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Margin="0,8" Orientation="Vertical" Spacing="8">
-          <TextBlock Text="センサー情報取得間隔（秒）" />
-          <TextBox Watermark="秒数を入力（例: 10）" />
-        </StackPanel>
+        <Border
+          Grid.Row="2"
+          Grid.ColumnSpan="3"
+          Margin="0,8">
+          <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto, *">
+            <!--  ExecutionIntervalInSeconds  -->
+            <StackPanel
+              Grid.Row="0"
+              Orientation="Vertical"
+              Spacing="4">
+              <TextBlock Text="センサー情報取得間隔（秒）" />
+              <TextBox Watermark="秒数を入力（例: 10）" />
+            </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,8" Orientation="Vertical" Spacing="8">
-          <TextBlock Text="出力モード選択" />
-          <ComboBox ItemsSource="{Binding OutputModes}" HorizontalAlignment="Stretch" MaxDropDownHeight="100" SelectedIndex="0" SelectedItem="{Binding SelectedOutputMode}">
-            <ComboBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock Text="{Binding DisplayText}" />
-              </DataTemplate>
-            </ComboBox.ItemTemplate>
-          </ComboBox>
-        </StackPanel>
+            <StackPanel
+              Grid.Row="1"
+              Orientation="Vertical"
+              Spacing="4">
+              <TextBlock Text="出力モード選択" />
+              <ComboBox
+                HorizontalAlignment="Stretch"
+                ItemsSource="{Binding DataOutputModes}"
+                MaxDropDownHeight="100"
+                SelectedIndex="0"
+                SelectedItem="{Binding SelectedDataOutputMode}">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding DisplayText}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="2" IsVisible="{Binding IsJsonFileVisible}" Margin="0,8" Orientation="Vertical" Spacing="8">
-          <TextBlock Text="JSONファイル保存先" />
-          <TextBox Watermark="保存するファイル名を入力" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="3" Grid.Column="2" IsVisible="{Binding IsJsonServerVisible}" Margin="0,8" Orientation="Vertical" Spacing="8">
-          <TextBlock Text="JSONサーバーURL（アップデート先）" />
-          <TextBox Watermark="アップデート先のURLを入力" />
-        </StackPanel>
+            <!--  DataOutputMode: 0  -->
+            <StackPanel
+              Grid.Row="1"
+              Grid.Column="1"
+              IsVisible="{Binding IsJsonFileVisible}"
+              Orientation="Vertical"
+              Spacing="4">
+              <TextBlock Text="JSONファイル保存先" />
+              <TextBox Watermark="保存するファイル名を入力" />
+            </StackPanel>
+            <!--  DataOutputMode: 1  -->
+            <StackPanel
+              Grid.Row="1"
+              Grid.Column="1"
+              IsVisible="{Binding IsJsonServerVisible}"
+              Orientation="Vertical"
+              Spacing="4">
+              <TextBlock Text="JSONサーバーURL（アップデート先）" />
+              <TextBox Watermark="アップデート先のURLを入力" />
+            </StackPanel>
+          </Grid>
+        </Border>
       </Grid>
     </Border>
 
     <!--  Footer  -->
     <Border Grid.Row="2" Padding="10">
       <StackPanel HorizontalAlignment="Center">
-        <Button Classes="btn primary">RoomSenseの情報を取得する</Button>
+        <Button Classes="primary">RoomSenseの情報を取得する</Button>
       </StackPanel>
     </Border>
   </Grid>

@@ -9,14 +9,6 @@
     <Setter Property="BorderThickness" Value="1" />
   </Style>
 
-  <!--  TextBox header  -->
-  <Style Selector="TextBox.header">
-    <Setter Property="Foreground" Value="#666" />
-    <Setter Property="FontSize" Value="18" />
-    <Setter Property="FontWeight" Value="Bold" />
-    <Setter Property="Margin" Value="0,0,0,4" />
-  </Style>
-
   <!--  TextBox multiline  -->
   <Style Selector="TextBox.multiline">
     <Setter Property="AcceptsReturn" Value="True" />
@@ -25,6 +17,10 @@
   </Style>
 
   <!--  TextBlock  -->
+  <Style Selector="TextBlock.header">
+    <Setter Property="FontSize" Value="22" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
   <Style Selector="TextBlock.VCent">
     <Setter Property="VerticalAlignment" Value="Center" />
   </Style>

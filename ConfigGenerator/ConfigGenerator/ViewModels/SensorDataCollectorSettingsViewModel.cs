@@ -11,16 +11,12 @@ namespace ConfigGenerator.ViewModels;
 public partial class SensorDataCollectorSettingsViewModel : ViewModelBase
 {
     public int JsonServerColumn => IsJsonServer ? 0 : (IsCloud ? 0 : 0);
-    public int CloudColumn => IsCloud ? (IsJsonServer ? 2 : 0) : 2;
+    public int CloudColumn => IsCloud ? (IsJsonServer ? 1 : 0) : 1;
 
-    public bool IsJsonFileVisible => SelectedOutputMode?.Key == 0;
-    public bool IsJsonServerVisible => SelectedOutputMode?.Key == 1;
+    public bool IsJsonFileVisible => SelectedDataOutputMode?.Key == 0;
+    public bool IsJsonServerVisible => SelectedDataOutputMode?.Key == 1;
 
-    public ObservableCollection<ComboBoxModel> OutputModes { get; } =
-    [
-        new ComboBoxModel(0, "JSONファイルに出力"),
-        new ComboBoxModel(1, "JSONサーバーにアップデート")
-    ];
+    public ObservableCollection<ComboBoxModel> DataOutputModes { get; } = AppData.DataOutputModes;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(JsonServerColumn))]
@@ -35,5 +31,5 @@ public partial class SensorDataCollectorSettingsViewModel : ViewModelBase
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsJsonFileVisible))]
     [NotifyPropertyChangedFor(nameof(IsJsonServerVisible))]
-    private ComboBoxModel? _selectedOutputMode;
+    private ComboBoxModel? _selectedDataOutputMode;
 }

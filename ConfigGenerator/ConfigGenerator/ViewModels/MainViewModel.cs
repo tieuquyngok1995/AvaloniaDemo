@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using ConfigGenerator.Models;
+using ConfigGenerator.Service;
 
 namespace ConfigGenerator.ViewModels;
 
@@ -29,14 +30,15 @@ public partial class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         MenuItems = new ObservableCollection<NavigationMenuItem>(_templates);
-        SelectedMenuItem = MenuItems.First(vm => vm.ModelType == typeof(SensorDataCollectorSettingsViewModel));
+        SelectedMenuItem = MenuItems.First(vm => vm.ModelType == typeof(ExchangeSyncSettingsViewModel));
     }
 
     [ObservableProperty]
     private bool _isPaneOpen;
 
     [ObservableProperty]
-    private ViewModelBase _currentPage = new SensorDataCollectorSettingsViewModel();
+    //private ViewModelBase _currentPage = new ExchangeSyncSettingsViewModel();
+    private ViewModelBase _currentPage = new ExchangeSyncSettingsViewModel(new FilePickerService());
 
     [ObservableProperty]
     private NavigationMenuItem? _selectedMenuItem;

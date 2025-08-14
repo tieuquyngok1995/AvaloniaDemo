@@ -3,6 +3,7 @@
   xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:ConfigGenerator.Behaviors"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="clr-namespace:ConfigGenerator.ViewModels"
   d:DesignHeight="600"
@@ -10,25 +11,200 @@
   x:DataType="vm:ExchangeSyncSettingsViewModel"
   mc:Ignorable="d">
 
-  <Grid RowDefinitions="Auto, *, Auto">
+  <Grid RowDefinitions="Auto, Auto, Auto">
     <!--  Header  -->
     <Border Grid.Row="0" Padding="12">
-      <TextBlock Classes="header" Text="情報取得アプリの設定" />
+      <TextBlock Classes="header" Text="Exchange連携アプリの設定" />
     </Border>
 
-    <!--  Content  -->
+    <!--  Content - Table  -->
     <Border Grid.Row="1" Padding="12">
-      <Grid ColumnDefinitions="*, 10, *" RowDefinitions="Auto, auto, auto, auto">
+      <Grid ColumnDefinitions="*, *, *, *" RowDefinitions="Auto, Auto">
+        <DataGrid
+          x:Name="MyDataGrid"
+          Grid.Row="0"
+          Grid.ColumnSpan="4"
+          Height="195"
+          local:DataGridBehaviors.AutoScrollItem="{Binding SelectedRow}"
+          AutoGenerateColumns="False"
+          IsReadOnly="False"
+          ItemsSource="{Binding DataTable}"
+          SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+          <DataGrid.Columns>
+            <DataGridTextColumn
+              Width="Auto"
+              Binding="{Binding No}"
+              Header="No."
+              IsReadOnly="True" />
+            <DataGridTextColumn
+              Width="*"
+              Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              Header="名称" />
+            <DataGridTextColumn
+              Width="2*"
+              Binding="{Binding ExchangeResource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              Header="連携先Exchangeリソース" />
+          </DataGrid.Columns>
+        </DataGrid>
 
-        
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="0"
+          Margin="0,4,4,4">
+          <Button
+            HorizontalAlignment="Stretch"
+            Classes="primary"
+            Command="{Binding AddRowCommand}"
+            Content="行を追加" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="1"
+          Margin="4">
+          <Button
+            HorizontalAlignment="Stretch"
+            Classes="danger"
+            Command="{Binding RemoveSelectedCommand}"
+            CommandParameter="{Binding SelectedRow}"
+            Content="行を削除" />
+        </StackPanel>
       </Grid>
     </Border>
 
-    <!--  Footer  -->
+    <!--  Content - Control  -->
     <Border Grid.Row="2" Padding="10">
-      <StackPanel HorizontalAlignment="Center">
-        <Button Classes="btn primary">RoomSenseの情報を取得する</Button>
-      </StackPanel>
+      <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+        <StackPanel
+          Grid.Row="0"
+          Grid.Column="0"
+          Margin="0,8"
+          Orientation="Vertical"
+          Spacing="8">
+          <TextBlock Text="Exchange接続情報取得元" />
+          <ComboBox
+            HorizontalAlignment="Stretch"
+            ItemsSource="{Binding ExchangeConnectionSources}"
+            SelectedIndex="0"
+            SelectedItem="{Binding SelectedExchangeConnectionSource}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding DisplayText}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+
+        <!--  ExchangeConnectionSources: 0  -->
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="0"
+          IsVisible="{Binding IsSignageVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock VerticalAlignment="Center" Text="SmartRooms設定フォルダ" />
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <Button Command="{Binding SelectFilesCommand}" Content="Select Files" />
+            <TextBlock VerticalAlignment="Center" Text="{Binding SelectedFiles}" />
+          </StackPanel>
+        </StackPanel>
+        <!--  ExchangeConnectionSources: 1  -->
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="0"
+          IsVisible="{Binding IsManagementSiteVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock VerticalAlignment="Center" Text="SmartRooms 法人ID" />
+          <TextBox Watermark="保存するファイル名を入力" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="1"
+          IsVisible="{Binding IsManagementSiteVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock VerticalAlignment="Center" Text="SmartRooms 法人シークレット" />
+          <TextBox Watermark="保存するファイル名を入力" />
+        </StackPanel>
+        <!--  ExchangeConnectionSources: 2  -->
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="0"
+          IsVisible="{Binding IsCustomVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock VerticalAlignment="Center" Text="エンドポイントURL" />
+          <TextBox Watermark="保存するファイル名を入力" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="1"
+          IsVisible="{Binding IsCustomVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock VerticalAlignment="Center" Text="アプリケーションID" />
+          <TextBox Watermark="保存するファイル名を入力" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="2"
+          IsVisible="{Binding IsCustomVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock VerticalAlignment="Center" Text="クライアントシークレット" />
+          <TextBox Watermark="保存するファイル名を入力" />
+        </StackPanel>
+
+        <!--  ExecutionIntervalInSeconds  -->
+        <StackPanel
+          Grid.Row="2"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock Text="Exchange操作間隔（秒）" />
+          <TextBox Watermark="秒数を入力（例: 60）" />
+        </StackPanel>
+
+        <StackPanel
+          Grid.Row="3"
+          Grid.Column="0"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock Text="出力モード選択" />
+          <ComboBox
+            HorizontalAlignment="Stretch"
+            ItemsSource="{Binding DataOutputModes}"
+            MaxDropDownHeight="100"
+            SelectedIndex="0"
+            SelectedItem="{Binding SelectedDataOutputMode}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding DisplayText}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+        <!--  JsonFilePath  -->
+        <StackPanel
+          Grid.Row="3"
+          Grid.Column="1"
+          IsVisible="{Binding IsJsonFileVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock Text="JSONファイル保存先" />
+          <TextBox Watermark="保存するファイル名を入力" />
+        </StackPanel>
+        <!--  JsonServerUrl  -->
+        <StackPanel
+          Grid.Row="3"
+          Grid.Column="1"
+          IsVisible="{Binding IsJsonServerVisible}"
+          Orientation="Vertical"
+          Spacing="4">
+          <TextBlock Text="JSONサーバーURL（アップデート先）" />
+          <TextBox Watermark="アップデート先のURLを入力" />
+        </StackPanel>
+
+      </Grid>
     </Border>
   </Grid>
 </UserControl>

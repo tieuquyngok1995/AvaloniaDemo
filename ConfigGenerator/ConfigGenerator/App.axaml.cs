@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using ConfigGenerator.Service;
 using ConfigGenerator.ViewModels;
 using ConfigGenerator.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,6 +62,7 @@ public partial class App : Application
     internal static void ConfigureViewModels(IServiceCollection services)
     {
         services.AddSingleton<MainViewModel>();
+        services.AddSingleton<IFilePickerService, FilePickerService>();
         services.AddTransient<SensorDataCollectorSettingsViewModel>();
         services.AddTransient<ExchangeSyncSettingsViewModel>();
         services.AddTransient<ServiceManagerSettingsViewModel>();
@@ -72,6 +74,7 @@ public partial class App : Application
     internal static void ConfigureViews(IServiceCollection services)
     {
         services.AddSingleton<MainWindow>();
+        services.AddSingleton<IFilePickerService, FilePickerService>();
         services.AddTransient<SensorDataCollectorSettingsViewModel>();
         services.AddTransient<ExchangeSyncSettingsViewModel>();
         services.AddTransient<ServiceManagerSettingsViewModel>();
