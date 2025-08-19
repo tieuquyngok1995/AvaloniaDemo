@@ -9,7 +9,7 @@ using ConfigGenerator.ViewModels;
 using ConfigGenerator.Views;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ConfigGenerator;
+namespace AvaloniaDemo;
 
 /// <summary>
 /// アプリケーションのエントリーポイントとなるクラスです。

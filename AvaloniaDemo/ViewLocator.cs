@@ -5,7 +5,7 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 
-namespace ConfigGenerator;
+namespace AvaloniaDemo;
 
 /// <summary>
 /// ViewModelから対応するViewを解決し、インスタンスを生成するためのロケータークラスです。

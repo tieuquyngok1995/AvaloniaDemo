@@ -5,7 +5,7 @@ using System.Threading;
 using Avalonia;
 using Avalonia.ReactiveUI;
 
-namespace ConfigGenerator.Desktop;
+namespace AvaloniaDemo.Desktop;
 
 class Program
 {

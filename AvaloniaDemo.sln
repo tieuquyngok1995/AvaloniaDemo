@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigGenerator", "ConfigGenerator\ConfigGenerator.csproj", "{C1D05F6A-BC3C-A29B-1023-8FE66308C25F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaDemo", "AvaloniaDemo\AvaloniaDemo.csproj", "{C1D05F6A-BC3C-A29B-1023-8FE66308C25F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigGenerator.Desktop", "ConfigGenerator.Desktop\ConfigGenerator.Desktop.csproj", "{3064686A-248E-BDFC-B497-2FF0E7DD008A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaDemo.Desktop", "AvaloniaDemo.Desktop\AvaloniaDemo.Desktop.csproj", "{3064686A-248E-BDFC-B497-2FF0E7DD008A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
