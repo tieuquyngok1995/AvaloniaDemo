@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using AvaloniaDemo.Interfaces;
+using AvaloniaDemo.Service;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using ConfigGenerator.Interfaces;
 using ConfigGenerator.Service;
@@ -67,6 +69,7 @@ public partial class App : Application
         services.AddSingleton<IFilePickerService, FilePickerService>();
         services.AddSingleton<IFolderProcessor, FolderProcessor>();
         services.AddSingleton<IFileProcessor, FileProcessor>();
+        services.AddSingleton<IMessageBoxService, MessageBoxService>();
         services.AddTransient<SensorDataCollectorSettingsViewModel>();
         services.AddTransient<ExchangeSyncSettingsViewModel>();
         services.AddTransient<ServiceManagerSettingsViewModel>();

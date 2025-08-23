@@ -1,0 +1,109 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+      xmlns:local="clr-namespace:AvaloniaDemo.Converters"
+        x:Class="AvaloniaDemo.CustomMessageBox"
+  xmlns:vm="clr-namespace:AvaloniaDemo.ViewModels"
+        x:DataType="vm:CustomMessageBoxViewModel"
+        Width="350" Height="150"
+
+  xmlns:converters="clr-namespace:AvaloniaDemo.Converters"
+ CanResize="False"
+        SystemDecorations="None"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+
+  
+  <!--<Border Background="LightGray" CornerRadius="8" Padding="10">
+    <StackPanel>
+      --><!-- Custom title bar --><!--
+      <DockPanel LastChildFill="True" Height="30">
+        <TextBlock Text="{Binding Title}" FontWeight="Bold" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+        <Button Content="X" Width="24" Height="24" DockPanel.Dock="Right" Click="Close_Click"/>
+      </DockPanel>
+
+      --><!-- Nội dung --><!--
+      <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="0,10,0,20"/>
+
+      --><!-- Button OK/Cancel --><!--
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+        <Button Content="OK" Command="{Binding OkCommand}" Width="80"/>
+        <Button Content="Cancel" Command="{Binding CancelCommand}" Width="80"/>
+      </StackPanel>
+    </StackPanel>
+  </Border>-->
+
+  <Window.Resources>
+    <converters:MessageTypeToIconConverter x:Key="IconConverter"/>
+    <converters:MessageTypeToColorConverter x:Key="ColorConverter"/>
+  </Window.Resources>
+
+  <Design.DataContext>
+    <vm:MessageBoxViewModel/>
+  </Design.DataContext>
+
+  <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Nội dung message -->
+    <StackPanel Grid.Row="0" Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+      <!-- Icon dựa trên MessageType -->
+      <!--<TextBlock FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center"
+                Text="{Binding MessageType, Converter={StaticResource IconConverter}}"
+                Foreground="{Binding MessageType, Converter={StaticResource ColorConverter}}"/>-->
+      <PathIcon FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center" Width="16" Data="{Binding MessageType, Converter={StaticResource IconConverter}}" />
+      
+      <!-- Message text -->
+      <TextBlock Text="{Binding Message}"
+                TextWrapping="Wrap"
+                VerticalAlignment="Center"
+                MaxWidth="280"
+                FontSize="14"/>
+    </StackPanel>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="1"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="0,20,0,0">
+
+      <!-- Yes/No buttons -->
+      <Button Name="YesButton"
+              Content="Có"
+              Command="{Binding YesCommand}"
+              MinWidth="80"
+              Margin="5"
+              IsVisible="{Binding ShowYesNo}"/>
+
+      <Button Name="NoButton"
+              Content="Không"
+              Command="{Binding NoCommand}"
+              MinWidth="80"
+              Margin="5"
+              IsVisible="{Binding ShowYesNo}"/>
+
+      <!-- OK/Cancel buttons -->
+      <Button Name="OKButton"
+              Content="OK"
+              Command="{Binding OKCommand}"
+              MinWidth="80"
+              Margin="5"
+              IsVisible="{Binding !ShowYesNo}"/>
+
+      <Button Name="CancelButton"
+              Content="Hủy"
+              Command="{Binding CancelCommand}"
+              MinWidth="80"
+              Margin="5"
+              IsVisible="{Binding !ShowYesNo}"/>
+    </StackPanel>
+  </Grid>
+</Window>

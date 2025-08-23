@@ -96,24 +96,28 @@
                 <Button
                   HorizontalAlignment="Stretch"
                   Classes="primary"
-                  Content="連携用プログラムインストール" />
+                  Content="連携用プログラムインストール" 
+                  Command="{Binding ShowInfo}" />
                 <Button
                   HorizontalAlignment="Stretch"
                   Classes="primary"
                   Content="設定ファイルを生成し保存"
+                  Command="{Binding ShowWarning}" />
+                <Button
+                  HorizontalAlignment="Stretch"
+                  Classes="primary"
+                  Content="過去に生成したファイル読込" 
+                  Command="{Binding ShowError}" />
+                <Button
+                  HorizontalAlignment="Stretch"
+                  Classes="primary"
+                  Content="サービス開始"
+                  Command="{Binding ShowQuestion}"  />
+                <Button
+                  HorizontalAlignment="Stretch"
+                  Classes="primary"
+                  Content="サービス停止" 
                   Command="{Binding GenerateAndSaveConfigCommand}" />
-                <Button
-                  HorizontalAlignment="Stretch"
-                  Classes="primary"
-                  Content="過去に生成したファイル読込" />
-                <Button
-                  HorizontalAlignment="Stretch"
-                  Classes="primary"
-                  Content="サービス開始" />
-                <Button
-                  HorizontalAlignment="Stretch"
-                  Classes="primary"
-                  Content="サービス停止" />
               </StackPanel>
             </Border>
 

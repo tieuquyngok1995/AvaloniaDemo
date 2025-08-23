@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
+using AvaloniaDemo.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using ConfigGenerator.Interfaces;
 using ConfigGenerator.Models;
-using ConfigGenerator.Utils;
 
 namespace ConfigGenerator.ViewModels;
 
@@ -19,6 +20,7 @@ namespace ConfigGenerator.ViewModels;
 /// </summary>
 public partial class MainViewModel : ViewModelBase
 {
+    private readonly IMessageBoxService _messageBox;
     private readonly IFolderProcessor _folderProcessor;
     private readonly IFileProcessor _fileProcessor;
 
@@ -43,8 +45,9 @@ public partial class MainViewModel : ViewModelBase
     /// <summary>
     /// MainViewModelのコンストラクタ
     /// </summary>
-    public MainViewModel(IFolderProcessor folderProcessor, IFileProcessor fileProcessor)
+    public MainViewModel(IMessageBoxService messageBox, IFolderProcessor folderProcessor, IFileProcessor fileProcessor)
     {
+        _messageBox = messageBox;
         _folderProcessor = folderProcessor;
         _fileProcessor = fileProcessor;
         MenuItems = new ObservableCollection<NavigationMenuItem>(_listView);
@@ -80,20 +83,48 @@ public partial class MainViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void GenerateAndSaveConfig()
+    private async Task GenerateAndSaveConfigAsync()
     {
-        _folderProcessor.CreateFolder(AppConstants.SENSOR_DATA_COLLECTOR_CONFIG_FOLDER)
-            .Match(
-                Right: _ =>
-                {
-                    _fileProcessor.CreateFile(AppConstants.SENSOR_DATA_COLLECTOR_CONFIG_FILE);
-                    if (CurrentPage is SensorDataCollectorSettingsViewModel sensorVm)
-                    {
-                        sensorVm.SaveToModel();
-                        _fileProcessor.WriteToJsonFile(sensorVm.DataModel, AppConstants.SENSOR_DATA_COLLECTOR_CONFIG_FILE);
-                    }
-                },
-                Left: _ => { Console.WriteLine("Test"); }
-            );
+        //bool confirm = await _messageBox.Show("Xác nhận", "Bạn có muốn xóa không?");
+    }
+
+
+
+    [RelayCommand]
+    public async Task ShowInfo()
+    {
+        System.Diagnostics.Debug.WriteLine("ShowInfo called!");
+        try
+        {
+            await _messageBox.ShowInfoAsync("Test message!", "Test");
+            System.Diagnostics.Debug.WriteLine("MessageBox shown successfully!");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+    [RelayCommand]
+    public async Task ShowWarning()
+    {
+        await _messageBox.ShowWarningAsync("Cảnh báo: Dữ liệu có thể bị mất!");
+    }
+
+    [RelayCommand]
+    public async Task ShowError()
+    {
+        await _messageBox.ShowErrorAsync("Lỗi kết nối database!", "Lỗi");
+    }
+
+    [RelayCommand]
+    public async Task ShowQuestion()
+    {
+        var result = await _messageBox.ShowYesNoAsync("Bạn có muốn lưu thay đổi?", "Xác nhận");
+
+        if (result == MessageBoxResult.Yes)
+        {
+            await _messageBox.ShowInfoAsync("Đã lưu thành công!");
+        }
     }
 }
