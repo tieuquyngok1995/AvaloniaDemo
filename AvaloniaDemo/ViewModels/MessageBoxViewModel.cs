@@ -7,36 +7,8 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaDemo.ViewModels;
 
-public partial class CustomMessageBoxViewModel : ObservableObject
+public partial class MessageBoxViewModel : ObservableObject
 {
-    //private Window _window;
-
-    //public string Title { get; set; }
-    //public string Message { get; set; }
-
-    //public ICommand OkCommand { get; }
-    //public ICommand CancelCommand { get; }
-
-    //private TaskCompletionSource<bool> _tcs;
-
-    //public CustomMessageBoxViewModel(Window window, string title, string message, TaskCompletionSource<bool> tcs)
-    //{
-    //    _window = window;
-    //    Title = title;
-    //    Message = message;
-    //    _tcs = tcs;
-
-    //    OkCommand = ReactiveCommand.Create(() => Close(true));
-    //    CancelCommand = ReactiveCommand.Create(() => Close(false));
-    //}
-    //public void Close(bool result)
-    //{
-    //    if (!_tcs.Task.IsCompleted)   // đảm bảo chỉ gọi 1 lần
-    //        _tcs.SetResult(result);
-
-    //    _window.Close();              // đóng popup
-    //}
-
     [ObservableProperty]
     private string _message = string.Empty;
 

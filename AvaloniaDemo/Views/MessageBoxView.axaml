@@ -4,9 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
       xmlns:local="clr-namespace:AvaloniaDemo.Converters"
-        x:Class="AvaloniaDemo.CustomMessageBox"
+        x:Class="AvaloniaDemo.Views.MessageBoxView"
   xmlns:vm="clr-namespace:AvaloniaDemo.ViewModels"
-        x:DataType="vm:CustomMessageBoxViewModel"
+        x:DataType="vm:MessageBoxViewModel"
         Width="350" Height="150"
 
   xmlns:converters="clr-namespace:AvaloniaDemo.Converters"
@@ -15,30 +15,6 @@
         WindowStartupLocation="CenterOwner"
         Title="{Binding Title}">
 
-  
-  <!--<Border Background="LightGray" CornerRadius="8" Padding="10">
-    <StackPanel>
-      --><!-- Custom title bar --><!--
-      <DockPanel LastChildFill="True" Height="30">
-        <TextBlock Text="{Binding Title}" FontWeight="Bold" VerticalAlignment="Center" DockPanel.Dock="Left"/>
-        <Button Content="X" Width="24" Height="24" DockPanel.Dock="Right" Click="Close_Click"/>
-      </DockPanel>
-
-      --><!-- Nội dung --><!--
-      <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="0,10,0,20"/>
-
-      --><!-- Button OK/Cancel --><!--
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-        <Button Content="OK" Command="{Binding OkCommand}" Width="80"/>
-        <Button Content="Cancel" Command="{Binding CancelCommand}" Width="80"/>
-      </StackPanel>
-    </StackPanel>
-  </Border>-->
-
-  <Window.Resources>
-    <converters:MessageTypeToIconConverter x:Key="IconConverter"/>
-    <converters:MessageTypeToColorConverter x:Key="ColorConverter"/>
-  </Window.Resources>
 
   <Design.DataContext>
     <vm:MessageBoxViewModel/>
@@ -59,7 +35,8 @@
       <!--<TextBlock FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center"
                 Text="{Binding MessageType, Converter={StaticResource IconConverter}}"
                 Foreground="{Binding MessageType, Converter={StaticResource ColorConverter}}"/>-->
-      <PathIcon FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center" Width="16" Data="{Binding MessageType, Converter={StaticResource IconConverter}}" />
+      <PathIcon FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center" Width="16" Data="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToIcon}}"
+                Foreground="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToColor}}" />
       
       <!-- Message text -->
       <TextBlock Text="{Binding Message}"

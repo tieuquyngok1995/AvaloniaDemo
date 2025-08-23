@@ -44,4 +44,10 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MessageBoxView.axaml.cs">
+      <DependentUpon>MessageBoxView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

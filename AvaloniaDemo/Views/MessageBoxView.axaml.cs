@@ -2,11 +2,11 @@ using Avalonia.Controls;
 using AvaloniaDemo.Interfaces;
 using AvaloniaDemo.ViewModels;
 
-namespace AvaloniaDemo;
+namespace AvaloniaDemo.Views;
 
-public partial class CustomMessageBox : Window
+public partial class MessageBoxView : Window
 {
-    public CustomMessageBox()
+    public MessageBoxView()
     {
         InitializeComponent();
     }
@@ -22,14 +22,14 @@ public partial class CustomMessageBox : Window
     //    vm?.Close(false);  // trả false khi đóng bằng X
     //}
 
-    public CustomMessageBox(CustomMessageBoxViewModel viewModel) : this()
+    public MessageBoxView(MessageBoxViewModel viewModel) : this()
     {
         DataContext = viewModel;
 
         // Subscribe to result changes để đóng window
         viewModel.PropertyChanged += (s, e) =>
         {
-            if (e.PropertyName == nameof(CustomMessageBoxViewModel.Result)
+            if (e.PropertyName == nameof(MessageBoxViewModel.Result)
                 && viewModel.TaskCompletionSource != null)
             {
                 Close(viewModel.Result);
@@ -39,7 +39,7 @@ public partial class CustomMessageBox : Window
 
     protected override void OnClosed(System.EventArgs e)
     {
-        if (DataContext is CustomMessageBoxViewModel vm && vm.TaskCompletionSource?.Task.IsCompleted == false)
+        if (DataContext is MessageBoxViewModel vm && vm.TaskCompletionSource?.Task.IsCompleted == false)
         {
             vm.TaskCompletionSource.SetResult(MessageBoxResult.Cancel);
         }

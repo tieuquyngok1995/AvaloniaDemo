@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using AvaloniaDemo.Interfaces;
 using AvaloniaDemo.ViewModels;
+using AvaloniaDemo.Views;
 
 namespace AvaloniaDemo.Service;
 
@@ -25,9 +26,9 @@ public class MessageBoxService : IMessageBoxService
 
     public async Task<MessageBoxResult> ShowAsync(string message, string title = "Thông báo", MessageBoxType type = MessageBoxType.Information)
     {
-        return await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(async () =>
+        return await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync((System.Func<Task<MessageBoxResult>>)(async () =>
         {
-            var viewModel = new CustomMessageBoxViewModel
+            var viewModel = new MessageBoxViewModel
             {
                 Message = message,
                 Title = title,
@@ -36,14 +37,14 @@ public class MessageBoxService : IMessageBoxService
             };
 
             return await ShowDialog(viewModel);
-        });
+        }));
     }
 
     public async Task<MessageBoxResult> ShowYesNoAsync(string message, string title = "Xác nhận")
     {
-        return await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(async () =>
+        return await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync((System.Func<Task<MessageBoxResult>>)(async () =>
         {
-            var viewModel = new CustomMessageBoxViewModel
+            var viewModel = new MessageBoxViewModel
             {
                 Message = message,
                 Title = title,
@@ -52,7 +53,7 @@ public class MessageBoxService : IMessageBoxService
             };
 
             return await ShowDialog(viewModel);
-        });
+        }));
     }
 
     public async Task ShowInfoAsync(string message, string title = "Thông tin")
@@ -70,13 +71,13 @@ public class MessageBoxService : IMessageBoxService
         await ShowAsync(message, title, MessageBoxType.Error);
     }
 
-    private async Task<MessageBoxResult> ShowDialog(CustomMessageBoxViewModel viewModel)
+    private async Task<MessageBoxResult> ShowDialog(MessageBoxViewModel viewModel)
     {
         // luôn tạo TaskCompletionSource
         var tcs = new TaskCompletionSource<MessageBoxResult>();
         viewModel.TaskCompletionSource = tcs;
 
-        var window = new CustomMessageBox(viewModel);
+        var window = new MessageBoxView(viewModel);
 
         // Tìm main window
         Window? mainWindow = null;

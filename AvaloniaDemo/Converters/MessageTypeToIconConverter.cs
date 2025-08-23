@@ -31,11 +31,11 @@ public class MessageTypeToIconConverter : IValueConverter
         {
             var key = type switch
             {
-                MessageBoxType.Information => "LineHorizontal3Regular",
+                MessageBoxType.Information => "InfoIcon",
                 MessageBoxType.Warning => "WarningIcon",
                 MessageBoxType.Error => "ErrorIcon",
                 MessageBoxType.Question => "QuestionIcon",
-                _ => "LineHorizontal3Regular"
+                _ => null
             };
             return TypeConverters.IconConverter.Convert(key, targetType, parameter, culture);
         }
