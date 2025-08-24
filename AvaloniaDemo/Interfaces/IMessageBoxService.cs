@@ -7,7 +7,8 @@ namespace AvaloniaDemo.Interfaces
         Information,
         Warning,
         Error,
-        Question
+        Confirmation,
+        Processing
     }
 
     public enum MessageBoxResult
@@ -20,12 +21,11 @@ namespace AvaloniaDemo.Interfaces
 
     public interface IMessageBoxService
     {
-        //Task<bool> Show(string title, string message);
-
-        Task<MessageBoxResult> ShowAsync(string message, string title = "Thông báo", MessageBoxType type = MessageBoxType.Information);
-        Task<MessageBoxResult> ShowYesNoAsync(string message, string title = "Xác nhận");
-        Task ShowInfoAsync(string message, string title = "Thông tin");
-        Task ShowWarningAsync(string message, string title = "Cảnh báo");
-        Task ShowErrorAsync(string message, string title = "Lỗi");
+        Task<MessageBoxResult> ShowAsync(string message, string title = "Notification", MessageBoxType type = MessageBoxType.Information);
+        Task<MessageBoxResult> ShowYesNoAsync(string message, string title = "Confirmation");
+        Task ShowInfoAsync(string message, string title = "Information");
+        Task ShowWarningAsync(string message, string title = "Warning");
+        Task ShowErrorAsync(string message, string title = "Error");
+        Task<MessageBoxResult> ShowProcessingAsync(string message);
     }
 }

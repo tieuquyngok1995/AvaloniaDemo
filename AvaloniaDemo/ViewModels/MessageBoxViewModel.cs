@@ -21,6 +21,9 @@ public partial class MessageBoxViewModel : ObservableObject
     [ObservableProperty]
     private bool _showYesNo;
 
+    [ObservableProperty]
+    private bool _showProcessing;
+
     public MessageBoxResult Result { get; private set; } = MessageBoxResult.Cancel;
     public TaskCompletionSource<MessageBoxResult>? TaskCompletionSource { get; set; }
 

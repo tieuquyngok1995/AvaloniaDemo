@@ -96,7 +96,7 @@ public partial class MainViewModel : ViewModelBase
         System.Diagnostics.Debug.WriteLine("ShowInfo called!");
         try
         {
-            await _messageBox.ShowInfoAsync("Test message!", "Test");
+            await _messageBox.ShowInfoAsync("Test message!");
             System.Diagnostics.Debug.WriteLine("MessageBox shown successfully!");
         }
         catch (Exception ex)
@@ -114,17 +114,27 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     public async Task ShowError()
     {
-        await _messageBox.ShowErrorAsync("Lỗi kết nối database!", "Lỗi");
+        await _messageBox.ShowErrorAsync("Lỗi kết nối database!");
     }
 
     [RelayCommand]
     public async Task ShowQuestion()
     {
-        var result = await _messageBox.ShowYesNoAsync("Bạn có muốn lưu thay đổi?", "Xác nhận");
+        var result = await _messageBox.ShowYesNoAsync("Bạn có muốn lưu thay đổi?");
 
         if (result == MessageBoxResult.Yes)
         {
             await _messageBox.ShowInfoAsync("Đã lưu thành công!");
         }
+    }
+
+
+
+    [RelayCommand]
+    public async Task Show()
+    {
+        var result = await _messageBox.ShowProcessingAsync("test");
+
+
     }
 }

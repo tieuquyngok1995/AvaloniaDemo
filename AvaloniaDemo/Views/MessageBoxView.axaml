@@ -7,64 +7,93 @@
         x:Class="AvaloniaDemo.Views.MessageBoxView"
   xmlns:vm="clr-namespace:AvaloniaDemo.ViewModels"
         x:DataType="vm:MessageBoxViewModel"
-        Width="350" Height="150"
-
+        Width="400"
+SizeToContent="Height"
   xmlns:converters="clr-namespace:AvaloniaDemo.Converters"
  CanResize="False"
         SystemDecorations="None"
         WindowStartupLocation="CenterOwner"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
         Title="{Binding Title}">
 
+  <Border Background="White"
+          CornerRadius="12"
+          BorderBrush="#CCC"
+          BorderThickness="1"
+          Padding="0">
 
-  <Design.DataContext>
-    <vm:MessageBoxViewModel/>
-  </Design.DataContext>
+  <Grid RowDefinitions="Auto, *, Auto" ColumnSpacing="12" >
+    <Border Grid.Row="0"
+            Background="#EEE"
+            Padding="8"
+            CornerRadius="6 0">
+      <Grid ColumnSpacing="8" ColumnDefinitions="Auto, *">
 
-  <Grid Margin="20">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
+        <!-- Icon nhỏ -->
+        <PathIcon Grid.Column="0"
+                  Width="20" Height="20"
+                  VerticalAlignment="Center"
+                  Data="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToIcon}}"
+                  Foreground="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToColor}}" />
 
-    <!-- Nội dung message -->
-    <StackPanel Grid.Row="0" Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+        <!-- Title -->
+        <TextBlock Grid.Column="1"
+                   Text="{Binding Title}"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"/>
+      </Grid>
+    </Border>
+    
+    <!-- Dòng 1: Icon + Message -->
+    <Grid Grid.Row="1" ColumnDefinitions="0.3*, 0.7*" IsVisible="{Binding !ShowProcessing}"
+               Margin=" 0 12 0 0">
+      <!-- Icon -->
+      <PathIcon Grid.Column="0"
+                       Height="64" Width="64"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Data="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToIcon}}"
+                       Foreground="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToColor}}" />
 
-      <!-- Icon dựa trên MessageType -->
-      <!--<TextBlock FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center"
-                Text="{Binding MessageType, Converter={StaticResource IconConverter}}"
-                Foreground="{Binding MessageType, Converter={StaticResource ColorConverter}}"/>-->
-      <PathIcon FontSize="32" Margin="0,0,15,0" VerticalAlignment="Center" Width="16" Data="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToIcon}}"
-                Foreground="{Binding MessageType, Converter={x:Static local:Converters.MessageTypeToColor}}" />
-      
       <!-- Message text -->
-      <TextBlock Text="{Binding Message}"
-                TextWrapping="Wrap"
-                VerticalAlignment="Center"
-                MaxWidth="280"
-                FontSize="14"/>
-    </StackPanel>
+      <TextBlock Grid.Column="1" Padding="12 0"
+                 Text="{Binding Message}"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Center"
+                 FontSize="16"/>
+      
+    </Grid>
+    <StackPanel Grid.Row="1" IsVisible="{Binding ShowProcessing}"
+               Margin=" 0 16 0 0">
+      <ProgressBar Height="16"
+                   IsIndeterminate="True"
+                   Minimum="0" Maximum="100" />
 
-    <!-- Buttons -->
-    <StackPanel Grid.Row="1"
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0,20,0,0">
+      <TextBlock Text="{Binding Message}"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Center" />
+    </StackPanel>
+    
+    <!-- Dòng 2: Buttons -->
+    <StackPanel Grid.Row="2" IsVisible="{Binding !ShowProcessing}"
+               Orientation="Horizontal"
+               HorizontalAlignment="Center"  Margin="12" Spacing="24">
 
       <!-- Yes/No buttons -->
       <Button Name="YesButton"
-              Content="Có"
+              Content="Yes"
               Command="{Binding YesCommand}"
               MinWidth="80"
-              Margin="5"
               IsVisible="{Binding ShowYesNo}"/>
 
       <Button Name="NoButton"
-              Content="Không"
+              Content="No"
               Command="{Binding NoCommand}"
               MinWidth="80"
-              Margin="5"
               IsVisible="{Binding ShowYesNo}"/>
 
       <!-- OK/Cancel buttons -->
@@ -72,15 +101,18 @@
               Content="OK"
               Command="{Binding OKCommand}"
               MinWidth="80"
-              Margin="5"
-              IsVisible="{Binding !ShowYesNo}"/>
-
-      <Button Name="CancelButton"
-              Content="Hủy"
-              Command="{Binding CancelCommand}"
-              MinWidth="80"
-              Margin="5"
               IsVisible="{Binding !ShowYesNo}"/>
     </StackPanel>
+    <StackPanel Grid.Row="2" IsVisible="{Binding ShowProcessing}"
+               Orientation="Horizontal"
+               HorizontalAlignment="Center"  Margin="12" Spacing="24">
+      <Button Name="CancelButton"
+        Content="Cancel"
+        Command="{Binding CancelCommand}"
+        MinWidth="80"/>
+    </StackPanel>
   </Grid>
+
+
+  </Border>
 </Window>

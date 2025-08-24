@@ -11,16 +11,6 @@ public partial class MessageBoxView : Window
         InitializeComponent();
     }
 
-    //public CustomMessageBox(CustomMessageBoxViewModel viewModel) : this()
-    //{
-    //    DataContext = viewModel;
-    //}
-
-    //private void Close_Click(object sender, RoutedEventArgs e)
-    //{
-    //    var vm = DataContext as CustomMessageBoxViewModel;
-    //    vm?.Close(false);  // trả false khi đóng bằng X
-    //}
 
     public MessageBoxView(MessageBoxViewModel viewModel) : this()
     {

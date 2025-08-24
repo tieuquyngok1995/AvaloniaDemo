@@ -117,7 +117,7 @@
                   HorizontalAlignment="Stretch"
                   Classes="primary"
                   Content="サービス停止" 
-                  Command="{Binding GenerateAndSaveConfigCommand}" />
+                  Command="{Binding Show}" />
               </StackPanel>
             </Border>
 
